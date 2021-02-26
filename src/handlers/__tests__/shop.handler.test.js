@@ -1,5 +1,6 @@
 const handlerOps = require('../shop.handler');
-const ServiceOps = require('../../services/shop.service');
+const fileService = require('../../services/shop.service');
+
 describe('get Handler', () => {
     const mockSend = jest.fn();
     const mockResponse = {
@@ -10,7 +11,7 @@ describe('get Handler', () => {
         body : "abc"
     };
      
-    const catSpy = jest.spyOn(ServiceOps, 'getService').mockResolvedValue('abc')
+    const catSpy = jest.spyOn(fileService, 'getService').mockResolvedValue('abc')
     it('should set status code to 200', async () => {
      const mockVal = await  handlerOps.getHandler(mockRequest, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(201);
@@ -31,7 +32,7 @@ describe('post Handler', () => {
         body : "abc"
     };
      
-    const catSpy = jest.spyOn(ServiceOps, 'postService').mockResolvedValue('abc')
+    const catSpy = jest.spyOn(fileService, 'postService').mockResolvedValue('abc')
     it('should set status code to 200', async () => {
      const mockVal = await  handlerOps.postHandler(mockRequest, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(201);

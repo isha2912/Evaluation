@@ -10,7 +10,14 @@ const postHandler = async (req, res) => {
 const getHandler = async (req, res) => {
     const { body} = req;
     const featValues =  await fileService.getService(body);
+    console.log(featValues);
     res.status(200).send(featValues);
 }
 
-module.exports = { postHandler, getHandler}
+
+const getQueryHandler = async (req, res) => {
+    const { body } = req;
+    const itemValues = await fileService.getQueryService(body);
+    res.status(200).send(itemValues);
+}
+module.exports = { postHandler, getHandler, getQueryHandler}

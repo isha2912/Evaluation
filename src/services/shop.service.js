@@ -1,6 +1,7 @@
 const { shopRouter } = require('../routes');
 const fileOps = require('../utils/shop.utils');
 const { Shop } = require('../models')
+const { Op } = require('sequelize');
 
 const postService = async (body) => {
     const getCat= await fileOps.getCategories(body);
@@ -11,8 +12,7 @@ const postService = async (body) => {
         i += 1;
     });
 
-  console.log("**" , );
-itemList.forEach(async (item) => {
+ itemList.forEach(async (item) => {
     const getItems = await (fileOps.getItems(item));
     const queryInserted = await Shop.create({cat_name: getCat.name,item_id:item, feat_name:getItems.features[0].name, feat_value:getItems.features[0].value })
   
@@ -35,4 +35,21 @@ const getService = async (body) =>{
 
     return featList;
 }
-module.exports = { postService, getService};
+
+const getQueryService = async (body) => {
+    const featList = await Shop.findAll({attributes: ['item_id']},{
+        where:{
+            [Op.and]: [
+                {  feat_name: body.name},
+                {  feat_value: body.value},
+                { cat_name:body.category}
+              ]
+           
+            
+            
+        }
+    })
+
+    return featList;
+}
+module.exports = { postService, getService, getQueryService};
