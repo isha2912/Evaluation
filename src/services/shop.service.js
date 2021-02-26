@@ -1,4 +1,4 @@
-const { shopRouter } = require('../routes');
+
 const fileOps = require('../utils/shop.utils');
 const { Shop } = require('../models')
 const { Op } = require('sequelize');
@@ -36,13 +36,13 @@ const getService = async (body) =>{
     return featList;
 }
 
-const getQueryService = async (body) => {
+const getQueryService = async (name, value, category) => {
     const featList = await Shop.findAll({attributes: ['item_id']},{
         where:{
             [Op.and]: [
-                {  feat_name: body.name},
-                {  feat_value: body.value},
-                { cat_name:body.category}
+                {  feat_name: name},
+                {  feat_value: value},
+                { cat_name: category}
               ]
            
             

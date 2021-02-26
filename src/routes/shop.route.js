@@ -3,9 +3,10 @@ const { postHandler, getHandler, getQueryHandler } = require('../handlers/shop.h
 const router = express.Router();
 
 
-router.post('', postHandler);
+
 router.get('', getHandler);
-router.get('/query', getQueryHandler)
+router.get('/query/:name/:value/:category', getQueryHandler)
+router.post('', postHandler);
 
 module.exports = {
   router,
