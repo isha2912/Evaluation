@@ -22,6 +22,22 @@ describe('get Handler', () => {
       
     });
   });
+  describe('get Handler', () => {
+    const mockSend = jest.fn();
+    const mockResponse = {
+      status: jest.fn(() => ({ send: mockSend })),
+  
+    };
+    const mockRequest = {
+        body :"abc"
+    };
+     
+    const catSpy = jest.spyOn(fileService, 'getService').mockResolvedValue('abc')
+    it('should set status code to 400', async () => {
+     const mockVal = await  handlerOps.getHandler(mockRequest, mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+    });
+  })
 
 describe('post Handler', () => {
     const mockSend = jest.fn();
@@ -46,6 +62,22 @@ describe('post Handler', () => {
     });
   });
   
+  describe('post Handler', () => {
+    const mockSend = jest.fn();
+    const mockResponse = {
+      status: jest.fn(() => ({ send: mockSend })),
+  
+    };
+    const mockRequest = {
+        body :"abc"
+    };
+     
+    const catSpy = jest.spyOn(fileService, 'postService').mockResolvedValue('abc')
+    it('should set status code to 400', async () => {
+     const mockVal = await  handlerOps.postHandler(mockRequest, mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
+    });
+  })
 
   describe('get Query Handler', () => {
     const mockSend = jest.fn();
@@ -67,5 +99,3 @@ describe('post Handler', () => {
       expect(mockResponse.status().send).toHaveBeenCalledWith('abc');
     });
   });
-  
-
